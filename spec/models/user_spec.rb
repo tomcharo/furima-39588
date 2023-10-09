@@ -44,15 +44,21 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
       end
-      it "password:文字のみ" do
-        @user.password = "aaaaaa"
-        @user.password_confirmation = "aaaaaa"
+      it "password:英字のみ" do
+        @user.password = Faker::Alphanumeric.alpha(number: 6)
+        @user.password_confirmation = @user.password
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid. Include both letters and numbers")
       end
       it "password:数字のみ" do
-        @user.password = "111111"
-        @user.password_confirmation = "111111"
+        @user.password = Faker::Number.number(digits: 6)
+        @user.password_confirmation = @user.password
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid. Include both letters and numbers")
+      end
+      it "password:全角文字を含む" do
+        @user.password = "aaa111全角"
+        @user.password_confirmation = "aaa111全角"
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid. Include both letters and numbers")
       end
