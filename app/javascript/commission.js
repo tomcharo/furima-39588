@@ -3,7 +3,7 @@ function commission() {
   itemPrice.addEventListener("input",()=>{
     const itemCommission = Math.floor(itemPrice.value / 10);
     document.getElementById("add-tax-price").innerHTML = itemCommission;
-    document.getElementById("profit").innerHTML = itemPrice.value - itemCommission;
+    document.getElementById("profit").innerHTML = Math.floor(itemPrice.value - itemCommission);
   });
 };
 
