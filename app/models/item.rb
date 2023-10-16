@@ -8,6 +8,7 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one_attached :image
+  has_one :order
 
   validates :image, :name, :info, :price, presence: true
   validates :price, numericality: { only_integer: true, message: "is invalid. Input half-width numbers" }
